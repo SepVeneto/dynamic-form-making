@@ -107,9 +107,11 @@ export default {
                 <generate-form-item
                   key={element.key}
                   item={element}
-                  modal={this.modal}
+                  {...{props: {modal: this.modal}}}
                   {...{on: {'update:modal': this.handleUpdatemodal}}}
-                ></generate-form-item>
+                  {...{scopedSlots: {...this.$scopedSlots}}}
+                >
+                </generate-form-item>
                 </div>
               ))}
             </el-col>
@@ -118,7 +120,7 @@ export default {
       ),
       custom: () => (
         <div class={this.item.class}>
-          {this.$slots.default ? h('div', this.$slots.default) : ''}
+          {this.$scopedSlots[this.item.key]({model: this.modal})}
         </div>
       )
     }
@@ -136,6 +138,8 @@ export default {
         </el-form-item>
       )
     return formItem
+  },
+  mounted() {
   },
   created() {
     const {remoteMethod} = this.item;
@@ -181,6 +185,7 @@ export default {
   watch: {
     widgetData: {
       deep: true,
+      immediate: true,
       handler(val) {
         this.modal[this.item.key] = val;
         this.$emit('update:modal', {
@@ -191,7 +196,9 @@ export default {
     },
     modal: {
       deep: true,
+      immediate: true,
       handler(val) {
+        console.log(this.item.key, val)
         this.widgetData = val[this.item.key];
       }
     }

@@ -2541,7 +2541,7 @@ var TextInput = function(parentNode, host) {
             return;
         if (typeof data == "string") {
             if (data)
-                data = JSON.stringify(JSON.parse(data), null, 4);
+                data = JSON.stringify(JSON.parse(data), null, 2);
                 host.onPaste(data, e);
             if (useragent.isIE)
                 setTimeout(resetSelection);

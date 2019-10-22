@@ -5,10 +5,12 @@
         <div class="form-header__operate">
           <el-button type="text" @click="handlePreview">
             <svg-icon class="operate-icons" icon="preview" />预览</el-button>
-          <el-button type="text" @click="handleGenerateCode">
+          <el-button type="text" @click="handleGenerateJson">
             <svg-icon class="operate-icons" icon="download" />生成json</el-button>
-          <el-button type="text" @click="handleImportCode">
+          <el-button type="text" @click="handleImportJson">
             <svg-icon class="operate-icons" icon="upload" />导入json</el-button>
+          <el-button type="text" @click="handleGenerateCode">
+            <svg-icon class="operate-icons" icon="code" />生成代码</el-button>
         </div>
       </header>
       <aside class="form-components" width="300px">
@@ -49,27 +51,43 @@
       </template>
       <el-button type="primary" @click="handleGetData">获取数据</el-button>
     </el-dialog>
-    <el-dialog title="json代码" :visible.sync="codeVisible">
-      <div v-if="codeVisible" class="editor" id="json-code">{{config}}</div>
+    <el-dialog v-if="jsonVisible" title="json代码" :visible.sync="jsonVisible">
+      <div class="editor" id="json-code">{{config}}</div>
       <el-button 
         id="json-copy-btn" 
         type="primary" 
         :data-clipboard-text="JSON.stringify(config)"
       >复制数据</el-button>
     </el-dialog>
-    <el-dialog title="json代码" :visible.sync="importVisible">
-      <div v-if="importVisible" class="editor" id="import-code">{{jsonConfig}}</div>
+    <el-dialog v-if="importVisible" title="json代码" :visible.sync="importVisible">
+      <div class="editor" id="import-code">{{jsonConfig}}</div>
       <template #footer>
         <pre>{{jsonConfig}}</pre>
         <el-button type="primary" @click="handleImport">确定</el-button>
       </template>
     </el-dialog>
-    <generate-form :config="testConfig" :data="testData">
+    <el-dialog v-if="codeVisible" title="生成代码" :visible.sync="codeVisible">
+      <div class="editor" id="template-code">{{codeTemplate}}</div>
+      <el-button 
+        id="code-copy-btn" 
+        type="primary" 
+        :data-clipboard-text="JSON.stringify(codeTemplate)"
+      >复制数据</el-button>
+    </el-dialog>
+    <div>{{testData}}</div>
+    <generate-form ref="generateForms" :config="testConfig" :data="testData">
       <!-- <template slot="custom1571385002264" slot-scope="scope"> -->
-      <template #custom1571385002264="scope">
-        <el-input v-model="scope.model.custom1571385002264" />
+      <template #test1="scope">
+        <el-input v-model="scope.model.test1" />
+      </template>
+      <template #test2="scope">
+        <el-input v-model="scope.model.test2" />
+      </template>
+      <template>
+        <div>testtest</div>
       </template>
     </generate-form>
+    <el-button @click="handleSubmit">获取数据</el-button>
     <!-- <common-table :tableConfig="tableConfig" :tableData="tableData">
       <template #test>
         <el-button>test</el-button>
@@ -107,12 +125,14 @@ export default {
   },
   data() {
     return {
-      testConfig: {"class":"midget-main","labelWidth":"120px","list":[{"label":"自定义组件","icon":"custom","type":"custom","labelWidth":"100px","key":"custom1571385002264"}]},
+      codeTemplate: '',
+      testConfig: {"class":"midget-main","labelWidth":"120px","list":[{"label":"栅格","icon":"grid","type":"grid","columns":[{"colSpan":12,"list":[{"label":"自定义组件","icon":"custom","type":"custom","labelWidth":"100px","key":"test1"}]},{"colSpan":12,"list":[]}],"key":"grid1571726361648"},{"label":"单行文本","icon":"input","type":"input","default":"","rules":[],"labelWidth":"100px","width":"100%","required":false,"clearable":false,"disabled":false,"placeholder":"","key":"input1571726365012"},{"label":"自定义组件","icon":"custom","type":"custom","labelWidth":"100px","key":"test2"}]},
       testData: {},
       importVisible: false,
       jsonConfig: '',
       copyBoard: null,
       codeVisible: false,
+      jsonVisible: false,
       result: {},
       previewVisible: false,
       selectWidget: {},
@@ -153,6 +173,18 @@ export default {
     }
   },
   methods: {
+    handleSubmit() {
+      this.$refs.generateForms.getData().then(data => {
+        this.testData = data;
+      })
+    },
+    handleGenerateCode() {
+      this.codeVisible = true;
+      this.$nextTick().then(() => {
+        const editor = ace.edit('template-code');
+        editor.session.setMode('ace/mode/html');
+      })
+    },
     handleImport() {
       try {
         this.config = JSON.parse(this.importEditor.getValue());
@@ -161,15 +193,15 @@ export default {
         this.$message.error(error);
       }
     },
-    handleImportCode() {
+    handleImportJson() {
       this.importVisible = true;
       this.$nextTick().then(() => {
         this.importEditor = ace.edit('import-code');
         this.importEditor.session.setMode('ace/mode/json');
       })
     },
-    handleGenerateCode() {
-      this.codeVisible = true;
+    handleGenerateJson() {
+      this.jsonVisible = true;
       this.$nextTick().then(() => {
         const editor = ace.edit('json-code');
         editor.session.setMode('ace/mode/json');
@@ -235,9 +267,9 @@ export default {
   grid-column: 3;
   grid-row: 1 / 3;
 }
-.generate-form {
+// .generate-form {
 
-}
+// }
 #json-copy-btn {
   margin: 0 auto;
 }

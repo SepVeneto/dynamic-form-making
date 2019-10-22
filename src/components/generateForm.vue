@@ -1,3 +1,4 @@
+<!--
 <template>
   <el-form
     ref="validateForm"
@@ -12,11 +13,18 @@
         :modal.sync="models"
         @inputChange="handleInputChange"
       >
-      <slot :name="item.key" :model="models" />
       </generate-form-item>
     </template>
   </el-form>
 </template>
+-->
+<!--
+<template>
+  <el-form :model="models">
+    <el-form-item label=""><slot/></el-form-item>
+  </el-form>
+</template>
+-->
 
 <script>
 import generateFormItem from './generateFormItem';
@@ -32,8 +40,31 @@ export default {
       type: Object,
     }
   },
+  render(h) {
+    return (
+      <el-form
+        ref="validateForm"
+        class={this.config.class}
+        label-width={this.config.labelWidth}
+        attrs={{...this.$attrs, model: this.models}}
+      >
+        {this.config.list.map(item => (
+          <generateFormItem
+            key={item.key}
+            item={item}
+            {...{props: {modal: this.models}}}
+            {...{on: {'update:modal': this.updateModal}}}
+            {...{scopedSlots: {...this.$scopedSlots}}}
+          >
+          </generateFormItem>
+        ))}
+      </el-form>
+    )
+  },
   components: {
     generateFormItem,
+  },
+  mounted() {
   },
   watch: {
     data: {
@@ -48,6 +79,9 @@ export default {
     }
   },
   methods: {
+    updateModal(val) {
+      this.models = val;
+    },
     getData() {
       return new Promise((resolve, reject) => {
         this.$refs.validateForm.validate(valid => {
