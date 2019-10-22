@@ -120,7 +120,8 @@ export default {
       ),
       custom: () => (
         <div class={this.item.class}>
-          {this.$scopedSlots[this.item.key]({model: this.modal})}
+          {this.$scopedSlots[this.item.key] 
+            && this.$scopedSlots[this.item.key]({model: this.modal})}
         </div>
       )
     }
@@ -198,7 +199,7 @@ export default {
       deep: true,
       immediate: true,
       handler(val) {
-        console.log(this.item.key, val)
+        // console.log(this.item.key, val)
         this.widgetData = val[this.item.key];
       }
     }

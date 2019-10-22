@@ -39,13 +39,8 @@
         <config-options :visible="visible" :select="selectWidget" :config="config"/>
       </aside>
     </div>
-    <!-- <div>
-      <el-container>
-        <pre>{{config}}</pre>
-      </el-container>
-    </div> -->
-    <el-dialog title="预览" :visible.sync="previewVisible">
-      <template v-if="previewVisible">
+    <el-dialog v-if="previewVisible" title="预览" :visible.sync="previewVisible">
+      <template>
         <generate-form ref="generateForm" class="generate-form" :config="config" :data="formData" />
         <pre>{{result}}</pre>
       </template>
@@ -81,7 +76,7 @@
         <el-input v-model="scope.model.test1" />
       </template>
       <template #test2="scope">
-        <el-input v-model="scope.model.test2" />
+        <test-com v-model="scope.model.test2" />
       </template>
       <template>
         <div>testtest</div>
@@ -104,6 +99,8 @@ import draggable from 'vuedraggable';
 import Clipboard from 'clipboard';
 import configOptions from './components/configOptions';
 import generateForm from './components/generateForm';
+import testCom from './test/testCom';
+import generateTemplate from './components/generateTemplate';
 export default {
   name: 'app',
   components: {
@@ -112,6 +109,7 @@ export default {
     configOptions,
     generateForm,
     commonTable,
+    testCom,
   },
   computed: {
     visible() {
@@ -126,7 +124,7 @@ export default {
   data() {
     return {
       codeTemplate: '',
-      testConfig: {"class":"midget-main","labelWidth":"120px","list":[{"label":"栅格","icon":"grid","type":"grid","columns":[{"colSpan":12,"list":[{"label":"自定义组件","icon":"custom","type":"custom","labelWidth":"100px","key":"test1"}]},{"colSpan":12,"list":[]}],"key":"grid1571726361648"},{"label":"单行文本","icon":"input","type":"input","default":"","rules":[],"labelWidth":"100px","width":"100%","required":false,"clearable":false,"disabled":false,"placeholder":"","key":"input1571726365012"},{"label":"自定义组件","icon":"custom","type":"custom","labelWidth":"100px","key":"test2"}]},
+      testConfig: {"class":"midget-main","labelWidth":"120px","list":[{"label":"栅格","icon":"grid","type":"grid","columns":[{"colSpan":12,"list":[{"label":"栅格","icon":"grid","type":"grid","columns":[{"colSpan":12,"list":[{"label":"自定义组件","icon":"custom","type":"custom","labelWidth":"100px","key":"test1"}]},{"colSpan":12,"list":[{"label":"单行文本","icon":"input","type":"input","default":"","rules":[],"labelWidth":"100px","width":"100%","required":false,"clearable":false,"disabled":false,"placeholder":"","key":"input1571728608775"}]}],"key":"grid1571728560684"}]},{"colSpan":12,"list":[{"label":"单行文本","icon":"input","type":"input","default":"","rules":[],"labelWidth":"100px","width":"100%","required":false,"clearable":false,"disabled":false,"placeholder":"","key":"input1571728610285"}]}],"key":"grid1571726361648"},{"label":"单行文本","icon":"input","type":"input","default":"","rules":[],"labelWidth":"100px","width":"100%","required":false,"clearable":false,"disabled":false,"placeholder":"","key":"input1571726365012"},{"label":"自定义组件","icon":"custom","type":"custom","labelWidth":"100px","key":"test2"}]},
       testData: {},
       importVisible: false,
       jsonConfig: '',
@@ -184,6 +182,7 @@ export default {
         const editor = ace.edit('template-code');
         editor.session.setMode('ace/mode/html');
       })
+      this.codeTemplate = generateTemplate(this.config);
     },
     handleImport() {
       try {
@@ -209,7 +208,7 @@ export default {
       if (!this.copyBoard) {
         this.copyBoard = new Clipboard('#json-copy-btn');
         this.copyBoard.on('success', () => {
-          this.$message.success('复制成功');
+          this.$message.success('复制成功'); 
         })
       }
     },
