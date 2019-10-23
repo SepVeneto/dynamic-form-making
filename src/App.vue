@@ -49,9 +49,9 @@
     <el-dialog v-if="jsonVisible" title="json代码" :visible.sync="jsonVisible">
       <div class="editor" id="json-code">{{config}}</div>
       <el-button 
-        id="json-copy-btn" 
+        class="copy-btn"
         type="primary" 
-        :data-clipboard-text="JSON.stringify(config)"
+        @click="handleCopy(config)"
       >复制数据</el-button>
     </el-dialog>
     <el-dialog v-if="importVisible" title="json代码" :visible.sync="importVisible">
@@ -64,13 +64,13 @@
     <el-dialog v-if="codeVisible" title="生成代码" :visible.sync="codeVisible">
       <div class="editor" id="template-code">{{codeTemplate}}</div>
       <el-button 
-        id="code-copy-btn" 
+        class="copy-btn"
         type="primary" 
-        :data-clipboard-text="JSON.stringify(codeTemplate)"
+        @click="handleCopy(codeTemplate)"
       >复制数据</el-button>
     </el-dialog>
     <div>{{testData}}</div>
-    <generate-form ref="generateForms" :config="testConfig" :data="testData">
+    <generate-form ref="generateForms" :config="testConfig">
       <!-- <template slot="custom1571385002264" slot-scope="scope"> -->
       <template #test1="scope">
         <el-input v-model="scope.model.test1" />
@@ -96,7 +96,6 @@ import widgetConfig from './components/widgetConfig';
 import commonForm from './components/component/commonForm';
 import commonTable from './components/component/commonTable';
 import draggable from 'vuedraggable';
-import Clipboard from 'clipboard';
 import configOptions from './components/configOptions';
 import generateForm from './components/generateForm';
 import testCom from './test/testCom';
@@ -171,6 +170,20 @@ export default {
     }
   },
   methods: {
+    handleCopy(textObj) {
+      this.$copyText(JSON.stringify(textObj)).then(() => {
+        this.$message({
+          type: 'success',
+          message: '复制成功',
+        }, (err) => {
+          console.log(err);
+          this.$message({
+            type: 'error',
+            message: '复制失败'
+          })
+        })
+      })
+    },
     handleSubmit() {
       this.$refs.generateForms.getData().then(data => {
         this.testData = data;
@@ -205,12 +218,6 @@ export default {
         const editor = ace.edit('json-code');
         editor.session.setMode('ace/mode/json');
       })
-      if (!this.copyBoard) {
-        this.copyBoard = new Clipboard('#json-copy-btn');
-        this.copyBoard.on('success', () => {
-          this.$message.success('复制成功'); 
-        })
-      }
     },
     handleGetData() {
       this.$refs.generateForm.getData().then(data => {
@@ -231,6 +238,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.copy-btn {
+  margin-left: 50%;
+  transform-origin: center;
+  transform: translate(-50%, 10px);
+}
 .operate-icons {
   vertical-align: bottom;
   margin-right: 4px;

@@ -35,10 +35,10 @@ export default {
       required: true,
       type: Object,
     },
-    data: {
-      required:  true,
-      type: Object,
-    }
+    // data: {
+    //   required:  true,
+    //   type: Object,
+    // }
   },
   render(h) {
     return (
