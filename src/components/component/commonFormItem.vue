@@ -166,7 +166,6 @@ export default {
                 ghostClass="widget-preview"
               >
                 {col.list.map((element, index) => (
-                  <div>
                   <common-form-item
                     key={element.key}
                     item={element}
@@ -178,7 +177,6 @@ export default {
                       'update:select': (val) => {this.selectWidget = val}
                     }}}
                   ></common-form-item>
-                  </div>
                 ))}
               </draggable>
             </el-col>
@@ -202,7 +200,7 @@ export default {
           prop={this.item.key}
           nativeOnClick={(e) => {this.handleClick(e, this.item)}}
         >
-          <span>{components[this.item.type]()}</span>
+          {components[this.item.type]()}
           <div class="widget-key">{this.item.key}</div>
           {renderWidgetAction()}
         </el-form-item>

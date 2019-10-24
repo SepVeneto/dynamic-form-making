@@ -103,7 +103,6 @@ export default {
           {this.item.columns.map(col => (
             <el-col span={col.colSpan}>
               {col.list.map((element, index) => (
-                <div>
                 <generate-form-item
                   key={element.key}
                   item={element}
@@ -112,7 +111,6 @@ export default {
                   {...{scopedSlots: {...this.$scopedSlots}}}
                 >
                 </generate-form-item>
-                </div>
               ))}
             </el-col>
           ))}
@@ -135,7 +133,7 @@ export default {
           rules={this.item.rules}
           prop={this.item.key}
         >
-          <span>{components[this.item.type]()}</span>
+          {components[this.item.type]()}
         </el-form-item>
       )
     return formItem
