@@ -231,7 +231,21 @@ export default {
       // console.log(this.item.key, this.selectWidget.key);
     },
     handleCopy() {
-      console.log(this.selectWidget);
+      function setKey(widget) {
+        if (widget.type === 'grid') {
+          widget.key = `grid${new Date().getTime()}`
+          widget.columns.forEach(item => {
+            item.list.forEach(each => {
+              setKey(each);
+            })
+          })
+        } else {
+          widget.key = `${widget.type}${new Date().getTime() - parseInt(widget.key.replace(/[a-zA-Z]*/, ''))}`;
+        }
+      }
+      const newWidget = JSON.parse(JSON.stringify(this.selectWidget));
+      setKey(newWidget);
+      this.node.push(newWidget);
     },
     handleDelete(event) {
       event.stopPropagation();

@@ -1,7 +1,7 @@
 <template>
   <el-form>
     <el-form-item label="表单标签宽度">
-      <el-input-number v-model="config.labelWidth" />
+      <el-input-number size="mini" v-model="labelWidth" :step="10"/>
     </el-form-item>
   </el-form>
 </template>
@@ -15,5 +15,15 @@ export default {
       required: true,
     }
   },
+  computed: {
+    labelWidth: {
+      get() {
+        return Number(this.config.labelWidth.replace(/px/, ''));
+      },
+      set(val) {
+        this.config.labelWidth = `${val}px`;
+      }
+    }
+  }
 }
 </script>

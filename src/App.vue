@@ -70,13 +70,14 @@
       >复制数据</el-button>
     </el-dialog>
     <div>{{testData}}</div>
+    <div>{{testDataTest}}</div>
     <generate-form ref="generateForms" :config="testConfig">
       <!-- <template slot="custom1571385002264" slot-scope="scope"> -->
       <template #test1="scope">
         <el-input v-model="scope.model.test1" />
       </template>
       <template #test2="scope">
-        <test-com v-model="scope.model.test2" />
+        <test-com v-model="scope.model.test2" :options="testOptions" />
       </template>
       <template>
         <div>testtest</div>
@@ -122,9 +123,15 @@ export default {
   },
   data() {
     return {
+      testOptions: [
+        {label: '11', value: '1'},
+        {label: '2', value: '2'},
+        {label: '3', value: '3'},
+      ],
       codeTemplate: '',
       testConfig: {"class":"midget-main","labelWidth":"120px","list":[{"label":"栅格","icon":"grid","type":"grid","columns":[{"colSpan":12,"list":[{"label":"栅格","icon":"grid","type":"grid","columns":[{"colSpan":12,"list":[{"label":"自定义组件","icon":"custom","type":"custom","labelWidth":"100px","key":"test1"}]},{"colSpan":12,"list":[{"label":"单行文本","icon":"input","type":"input","default":"","rules":[],"labelWidth":"100px","width":"100%","required":false,"clearable":false,"disabled":false,"placeholder":"","key":"input1571728608775"}]}],"key":"grid1571728560684"}]},{"colSpan":12,"list":[{"label":"单行文本","icon":"input","type":"input","default":"","rules":[],"labelWidth":"100px","width":"100%","required":false,"clearable":false,"disabled":false,"placeholder":"","key":"input1571728610285"}]}],"key":"grid1571726361648"},{"label":"单行文本","icon":"input","type":"input","default":"","rules":[],"labelWidth":"100px","width":"100%","required":false,"clearable":false,"disabled":false,"placeholder":"","key":"input1571726365012"},{"label":"自定义组件","icon":"custom","type":"custom","labelWidth":"100px","key":"test2"}]},
       testData: {},
+      testDataTest: {},
       importVisible: false,
       jsonConfig: '',
       copyBoard: null,
@@ -186,7 +193,7 @@ export default {
     },
     handleSubmit() {
       this.$refs.generateForms.getData().then(data => {
-        this.testData = data;
+        this.testDataTest = this.testData = data;
       })
     },
     handleGenerateCode() {
