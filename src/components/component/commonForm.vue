@@ -12,15 +12,14 @@
     >
     <transition-group name="fade" tag="div" class="widget-view">
       <template v-for="(row, index) in config.list">
-        <div :key="index">
-          <common-form-item
-            :item="row"
-            :select.sync="selectWidget"
-            :node="config.list"
-            :index="index"
-            @input="handleInput($event, item.key)"
-          />
-      </div>
+        <common-form-item
+          :key="index"
+          :item="row"
+          :select.sync="selectWidget"
+          :node="config.list"
+          :index="index"
+          @input="handleInput($event, item.key)"
+        />
       </template>
     </transition-group>
     </draggable>

@@ -69,10 +69,10 @@
         @click="handleCopy(codeTemplate)"
       >复制数据</el-button>
     </el-dialog>
-    <div>{{testData}}</div>
+    <pre>{{config}}</pre>
+    <!-- <div>{{testData}}</div>
     <div>{{testDataTest}}</div>
     <generate-form ref="generateForms" :config="testConfig">
-      <!-- <template slot="custom1571385002264" slot-scope="scope"> -->
       <template #test1="scope">
         <el-input v-model="scope.model.test1" />
       </template>
@@ -83,7 +83,7 @@
         <div>testtest</div>
       </template>
     </generate-form>
-    <el-button @click="handleSubmit">获取数据</el-button>
+    <el-button @click="handleSubmit">获取数据</el-button> -->
     <!-- <common-table :tableConfig="tableConfig" :tableData="tableData">
       <template #test>
         <el-button>test</el-button>

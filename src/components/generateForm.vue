@@ -46,6 +46,7 @@ export default {
         ref="validateForm"
         class={this.config.class}
         label-width={this.config.labelWidth}
+        inline={this.config.inline}
         props={{model: this.models}}
       >
         {this.config.list.map(item => (

@@ -190,7 +190,7 @@ export default {
     }
     const formItem = this.item.type === 'grid' 
       ? (components['grid']())
-      : (
+      : 
         <el-form-item 
           id={this.item.id}
           class={`${this.item.class} widget-item ${this.selected ? 'active': ''}`}
@@ -200,11 +200,11 @@ export default {
           prop={this.item.key}
           nativeOnClick={(e) => {this.handleClick(e, this.item)}}
         >
-          {components[this.item.type]()}
+          <span>{components[this.item.type]()}</span>
           <div class="widget-key">{this.item.key}</div>
           {renderWidgetAction()}
         </el-form-item>
-      )
+ 
     return formItem;
   },
   mounted() {

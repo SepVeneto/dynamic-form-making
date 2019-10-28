@@ -1,5 +1,6 @@
 <template>
   <el-form>
+    <el-checkbox label="内联" v-model="config.inline"/>
     <el-form-item label="表单标签宽度">
       <el-input-number size="mini" v-model="labelWidth" :step="10"/>
     </el-form-item>
