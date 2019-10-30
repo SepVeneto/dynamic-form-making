@@ -27,7 +27,8 @@
 -->
 
 <script>
-import generateFormItem from './generateFormItem';
+// import generateFormItem from './generateFormItem';
+const generateFormItem = () => import('./generateFormItem');
 export default {
   name: 'generate-form',
   props: {

@@ -26,7 +26,8 @@
   </div>
 </template>
 <script>
-import draggable from 'vuedraggable';
+// import draggable from 'vuedraggable';
+const draggable = () => import('vuedraggable');
 export default {
   name: 'mul-options',
   components: {

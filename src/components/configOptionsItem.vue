@@ -103,8 +103,10 @@
 </template>
 
 <script>
-import widgetComponent from './widgetComponent';
-import mulOptions from './component/mulOptions';
+// import widgetComponent from './widgetComponent';
+const widgetComponent = () => import('./widgetConfig');
+// import mulOptions from './component/mulOptions';
+const mulOptions = () => import('./component/mulOptions');
 export default {
   name: 'config-options-item',
   props: {

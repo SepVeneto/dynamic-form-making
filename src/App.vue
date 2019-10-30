@@ -94,13 +94,20 @@
 
 <script>
 import widgetConfig from './components/widgetConfig';
-import commonForm from './components/component/commonForm';
-import commonTable from './components/component/commonTable';
-import draggable from 'vuedraggable';
-import configOptions from './components/configOptions';
-import generateForm from './components/generateForm';
-import testCom from './test/testCom';
+// const widgetConfig = () => import('./components/widgetConfig');
+// import commonForm from './components/component/commonForm';
+const commonForm = () => import('./components/component/commonForm');
+// import commonTable from './components/component/commonTable';
+// const commontable = () => import('./components/component/commonTable')
+// import draggable from 'vuedraggable';
+const draggable = () => import('vuedraggable');
+// import configOptions from './components/configOptions';
+const configOptions = () => import('./components/configOptions');
+// import generateForm from './components/generateForm';
+const generateForm = () => import('./components/generateForm');
+// import testCom from './test/testCom';
 import generateTemplate from './components/generateTemplate';
+// const generateTemplate = () => import('./components/generateTemplate');
 export default {
   name: 'app',
   components: {
@@ -108,8 +115,8 @@ export default {
     draggable,
     configOptions,
     generateForm,
-    commonTable,
-    testCom,
+    // commonTable,
+    // testCom,
   },
   computed: {
     visible() {

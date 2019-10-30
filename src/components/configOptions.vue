@@ -13,8 +13,10 @@
 </template>
 
 <script>
-import configOptionsItem from './configOptionsItem';
-import configOptionsForm from './configOptionsForm';
+// import configOptionsItem from './configOptionsItem';
+const configOptionsItem = () => import('./configOptionsItem');
+// import configOptionsForm from './configOptionsForm';
+const configOptionsForm = () => import('./configOptionsForm');
 export default {
   name: 'config-options',
   components: {

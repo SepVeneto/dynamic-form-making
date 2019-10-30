@@ -28,8 +28,10 @@
 </template>
 
 <script>
-import commonFormItem from './commonFormItem';
-import draggable from 'vuedraggable';
+// import commonFormItem from './commonFormItem';
+const commonFormItem = () => import('./commonFormItem');
+// import draggable from 'vuedraggable';
+const draggable = () => import('vuedraggable');
 export default {
   name: 'common-form',
   props: {

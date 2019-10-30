@@ -1,6 +1,8 @@
 <script>
-import bus from './component/bus';
-import generateFormItem from './generateFormItem';
+// import bus from './component/bus';
+const bus = () => import('./component/bus');
+// import generateFormItem from './generateFormItem';
+const generateFormItem = () => import('./generateFormItem');
 export default {
   name: 'generate-form-item',
   props: {

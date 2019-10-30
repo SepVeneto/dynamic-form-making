@@ -1,7 +1,10 @@
 <script>
-import bus from './bus';
-import draggable from 'vuedraggable';
-import commonFormItem from './commonFormItem';
+// import bus from './bus';
+const bus = () => import('./bus');
+// import draggable from 'vuedraggable';
+const draggable = () => import('vuedraggable');
+// import commonFormItem from './commonFormItem';
+const commonFormItem = () => import('./commonFormItem');
 export default {
   name: 'common-form-item',
   props: {
