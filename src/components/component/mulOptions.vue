@@ -63,7 +63,7 @@ export default {
   data() {
     return {
       widgetOptions: this.options,
-      optionIndex: 1,
+      optionIndex: 0,
     }
   },
   methods: {

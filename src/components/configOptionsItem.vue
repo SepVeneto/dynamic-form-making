@@ -51,7 +51,7 @@
           <el-radio-button label="datetime">日期时间</el-radio-button>
         </el-radio-group>
         <template v-if="select.type === 'select'">
-          <el-radio-group v-model="select.remote">
+          <el-radio-group v-model="select.remote" @change="handleRemotChange">
             <el-radio-button :label="false">静态数据</el-radio-button>
             <el-radio-button :label="true">远程数据</el-radio-button>
           </el-radio-group>
@@ -140,6 +140,9 @@ export default {
     }
   },
   methods: {
+    handleRemotChange(isRemote) {
+      isRemote && (this.select.options = []);
+    },
     handleRadioChange(val) {
       const format = {
         date: 'yyyy-MM-dd',

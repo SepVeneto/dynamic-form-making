@@ -33,7 +33,7 @@ export default {
       disabled: false,
       placeholder: '',
       options: [
-        {label: 'option1', value: 'option1'},
+        // {label: 'option1', value: 'option1'},
       ]
     },
     {

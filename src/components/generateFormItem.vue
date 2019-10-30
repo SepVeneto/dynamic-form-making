@@ -42,8 +42,8 @@ export default {
           style={`width: ${this.item.width}`}
           value-key={this.item.valueKey}
           multiple={this.item.multiple}
-          filterable={this.item.filterable}
-          remote={this.item.remote}
+          filterable={this.item.filterable && this.item.remote}
+          remote={this.item.remote && this.item.filterable}
           clearable={this.item.clearable}
           no-data-text={this.item.noDataText}
           placeholder={this.item.placeholder}
@@ -147,15 +147,15 @@ export default {
     const api = remoteMethod;
     const params = this.item.apiParams ? this.item.apiParams : '';
     const options = [...this.item.options || []];
-    if(api)
-    {
-      this.$http[api](params).then((res)=> {
-        this.requestOptions = [...options, ...res.data || []];
-        // this.item.options = [...res.data]
-      })
-    } else {
+    // if(api)
+    // {
+    //   this.$http[api](params).then((res)=> {
+    //     this.requestOptions = [...options, ...res.data || []];
+    //     // this.item.options = [...res.data]
+    //   })
+    // } else {
       this.requestOptions = options;
-    }
+    // }
   },
   data() {
     return {
