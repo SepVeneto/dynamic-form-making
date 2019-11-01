@@ -18,7 +18,7 @@ export default {
     generateFormItem,
   },
   render(h) {
-        const pickerOptions = {
+    const pickerOptions = {
         disabledDate(value) {
           return value < new Date().setDate(new Date().getDate() - 1)
         }
@@ -82,6 +82,16 @@ export default {
           clearable={this.item.clearable}
           value-format={this.item.valueFormat}
           placeholder={this.item.placeholder} 
+          onInput={this.handleInput}
+        />
+      ),
+      colorPicker: () => (
+        <el-color-picker
+          style={`width: ${this.item.width}`}
+          value={this.widgetData}
+          disabled={this.item.disabled}
+          color-format={this.item.colorFormat}
+          show-alpha={this.item.showAlpha}
           onInput={this.handleInput}
         />
       ),

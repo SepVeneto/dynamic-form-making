@@ -63,6 +63,18 @@ export default {
       disabled: false,
       placeholder: '',
     },
+    {
+      label: '拾色器',
+      icon: 'color-picker',
+      type: 'colorPicker',
+      default: '',
+      rules: [],
+      labelWidth: '100px',
+      required: false,
+      disabled: false,
+      colorFormat: 'hex',
+      showAlpha: false,
+    }
   ],
   'advance': [
     {

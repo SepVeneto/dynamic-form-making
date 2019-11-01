@@ -4,13 +4,14 @@ import store from "./store";
 // import ElementUI from 'element-ui';
 import {Button, Dialog, Input, InputNumber, Select, DatePicker, TimePicker, Tabs, TabPane, Option,
   Checkbox, Form, FormItem, Icon, Row, Col, Container, Header, Aside, Main, RadioGroup,
-  RadioButton, Message} from 'element-ui';
+  RadioButton, Message, ColorPicker} from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './static/global.css';
 import './static/cover.css';
 import '@/icons'
 import VueClipboard from 'vue-clipboard2';
 
+Vue.use(ColorPicker);
 Vue.use(RadioGroup);
 Vue.use(RadioButton);
 Vue.use(Button);

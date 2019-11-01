@@ -154,6 +154,15 @@ export default {
           ))}
         </el-radio-group>
       ),
+      colorPicker: () => (
+        <el-color-picker 
+          style={`width: ${this.item.width}`}
+          value={this.value}
+          disabled={this.item.disabled}
+          show-alpha={this.item.showAlpha}
+          color-format={this.item.colorFormat}
+        />
+      ),
       grid: () => (
         <el-row 
           class={`widget-grid-item ${this.selected ? 'active' : ''}`}
