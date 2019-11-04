@@ -3,6 +3,7 @@
 const bus = () => import('./component/bus');
 // import generateFormItem from './generateFormItem';
 const generateFormItem = () => import('./generateFormItem');
+import validateConfig from './validateConfig';
 export default {
   name: 'generate-form-item',
   props: {
@@ -152,21 +153,11 @@ export default {
   },
   computed: {
     rulesFunction() {
-      function lettrs(rule, value, callback) {
-        // const regExp = new RegExp('[a-z][A-Z]', 'g');
-      const regExp = /^[a-zA-Z]+$/g;
-        if (regExp.test(value)) {
-          callback();
-        } else {
-          callback('请输入字母');
-        }
-      }
-      const regExpPattern = {
-        required: {required: true, message: `请输入${this.item.label}`},
-        letters: {validator: lettrs}
-      };
+      const required= {required: true, message: `请输入${this.item.label}`};
+      const pattern = {required, ...validateConfig};
       const { validate_rules } = this.item;
-      return validate_rules && this.item.validate_rules.map(item => item && regExpPattern[item]);
+      console.log(pattern);
+      return validate_rules && this.item.validate_rules.map(item => item && pattern[item]);
     },
   },
   mounted() {

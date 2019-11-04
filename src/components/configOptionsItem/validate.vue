@@ -9,7 +9,6 @@
     <el-select 
       v-model="pattern" 
       placeholder=""
-      multiple
       @change="handleSelect"
     >
       <el-option
@@ -19,6 +18,7 @@
         :value="item.value">
       </el-option>
     </el-select>
+    <el-input v-if="pattern === 'custom'" v-model="custom" @input="updateRules"/>
   </div>
 </template>
 
@@ -37,16 +37,18 @@ export default {
   props: ['select'],
   data() {
     return {
+      custom: '',
       pattern: '',
       optionsReg: [
-        {label: '字母', value: 'letters'}
+        {label: '字母', value: 'letters'},
+        {label: '自定义', value: 'custom'},
       ]
     }
   },
   methods: {
     updateRules() {
       const required = this.select.validate_required;
-      const rules = [...this.pattern, required && 'required'];
+      const rules = [this.pattern === 'custom' ? this.custom : this.pattern, required && 'required'];
       const regExpPattern = {
         required: {required: required, message: `请输入${this.select.label}`},
         letters: {validator: lettrs}
