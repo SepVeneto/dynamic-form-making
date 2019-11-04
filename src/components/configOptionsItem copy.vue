@@ -154,7 +154,7 @@ export default {
       const action = {grid: 'columns', select: 'options'};
       this.select[action[type]] = val;
     }
-  }
+  },
 }
 </script> 
 

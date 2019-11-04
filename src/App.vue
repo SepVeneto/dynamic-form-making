@@ -216,6 +216,8 @@ export default {
         return new Function(`return ${str}`);
       }
       try {
+        // 直接复制代码中的对象，粘贴出来会自动变成string类型
+        // 而这种字符串是不能转换成json对象的
         this.config = toObject(this.importEditor.getValue())();
         this.importVisible = false;
       } catch(error) {

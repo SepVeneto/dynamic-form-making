@@ -30,9 +30,9 @@ export default {
           style={`width: ${this.item.width}`}
           type={this.item.formType}
           disabled={this.item.disabled}
-          clearable={this.item.clearable}
+          clearable={this.item.options_clearable}
           placeholder={this.item.placeholder}
-          readonly={this.item.readonly}
+          readonly={this.item.options_readonly}
           onInput={this.handleInput}
         ></el-input>
       ),
@@ -41,14 +41,14 @@ export default {
           value={this.widgetData} 
           style={`width: ${this.item.width}`}
           value-key={this.item.valueKey}
-          multiple={this.item.multiple}
-          filterable={this.item.filterable && this.item.remote}
-          remote={this.item.remote && this.item.filterable}
-          clearable={this.item.clearable}
+          multiple={this.item.options_multiple}
+          filterable={this.item.options_filterable && this.item.options_remote}
+          remote={this.item.options_remote && this.item.options_filterable}
+          clearable={this.item.options_clearable}
           no-data-text={this.item.noDataText}
           placeholder={this.item.placeholder}
-          disabled={this.item.disabled}
-          remote-method={this.item.remote ? this.remoteMethod : null}
+          disabled={this.item.validate_disabled}
+          remote-method={this.item.options_remote ? this.remoteMethod : null}
           on-change={this.handleEmit}
           { ...{on: this.$listeners}}>
           {(this.requestOptions ).map(each => (
@@ -66,8 +66,8 @@ export default {
           // type={`${this.item.componentType}`}
           type={this.item.widgetType}
           style={`width: ${this.item.width}`}
-          disabled={this.item.disabled}
-          clearable={this.item.clearable}
+          disabled={this.item.options_disabled}
+          clearable={this.item.options_clearable}
           picker-options={this.item.banTime && pickerOptions}
           value-format={this.item.valueFormat || 'yyyy-MM-dd HH:mm:ss'}
           onInput={this.handleInput}
@@ -78,8 +78,8 @@ export default {
         <el-time-picker 
           style={`width: ${this.item.width}`}
           value={this.widgetData}
-          disabled={this.item.disabled}
-          clearable={this.item.clearable}
+          disabled={this.item.options_disabled}
+          clearable={this.item.options_clearable}
           value-format={this.item.valueFormat}
           placeholder={this.item.placeholder} 
           onInput={this.handleInput}
@@ -89,9 +89,9 @@ export default {
         <el-color-picker
           style={`width: ${this.item.width}`}
           value={this.widgetData}
-          disabled={this.item.disabled}
+          disabled={this.item.options_disabled}
           color-format={this.item.colorFormat}
-          show-alpha={this.item.showAlpha}
+          show-alpha={this.item.options_showAlpha}
           onInput={this.handleInput}
         />
       ),
@@ -102,7 +102,7 @@ export default {
         <el-radio-group 
           value={this.value} 
           {...{on: this.$listeners}}
-          disabled={this.item.disabled}>
+          disabled={this.item.options_disabled}>
           {this.item.options && this.item.options.map(each => (
             <el-radio label={each.value}>{each.label}</el-radio>
           ))}
@@ -142,13 +142,32 @@ export default {
           id={this.item.id}
           class={this.item.class}
           label={this.item.label} 
-          rules={this.item.rules}
+          rules={this.rulesFunction}
           prop={this.item.key}
         >
           {components[this.item.type]()}
         </el-form-item>
       )
     return formItem
+  },
+  computed: {
+    rulesFunction() {
+      function lettrs(rule, value, callback) {
+        // const regExp = new RegExp('[a-z][A-Z]', 'g');
+      const regExp = /^[a-zA-Z]+$/g;
+        if (regExp.test(value)) {
+          callback();
+        } else {
+          callback('请输入字母');
+        }
+      }
+      const regExpPattern = {
+        required: {required: true, message: `请输入${this.item.label}`},
+        letters: {validator: lettrs}
+      };
+      const { validate_rules } = this.item;
+      return validate_rules && this.item.validate_rules.map(item => item && regExpPattern[item]);
+    },
   },
   mounted() {
   },
