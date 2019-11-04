@@ -2536,13 +2536,16 @@ var TextInput = function(parentNode, host) {
     };
     
     var onPaste = function(e) {
+        function toObject(str) {
+            return new Function(`return ${str}`);
+        }
         var data = handleClipboardData(e);
         if (clipboard.pasteCancelled())
             return;
         if (typeof data == "string") {
             if (data)
                 try {
-                    data = JSON.stringify(JSON.parse(data), null, 2);
+                    data = JSON.stringify(toObject(data)(), null, 2);
                 } catch(err) {
                     data = `json解析失败，${err}`;
                 }

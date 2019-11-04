@@ -212,8 +212,11 @@ export default {
       this.codeTemplate = generateTemplate(this.config);
     },
     handleImport() {
+      function toObject(str) {
+        return new Function(`return ${str}`);
+      }
       try {
-        this.config = JSON.parse(this.importEditor.getValue());
+        this.config = toObject(this.importEditor.getValue())();
         this.importVisible = false;
       } catch(error) {
         this.$message.error(error);
