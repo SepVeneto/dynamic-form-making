@@ -219,6 +219,12 @@ export default {
  
     return formItem;
   },
+  created() {
+    document.body.ondrop = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  },
   mounted() {
     const {api} = this.item;
     const params = this.item.apiParams ? this.item.apiParams : '';

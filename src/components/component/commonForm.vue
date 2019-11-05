@@ -56,6 +56,12 @@ export default {
       selectWidget: {},
     }
   },
+  created() {
+    document.body.ondrop = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  },
   mounted() {
     this.setDefaultValue();
   },
