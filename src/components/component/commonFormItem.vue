@@ -176,6 +176,7 @@ export default {
                 list={col.list}
                 group="button"
                 ghostClass="widget-preview"
+                setData={this.setData}
               >
                 {col.list.map((element, index) => (
                   <common-form-item
@@ -219,13 +220,6 @@ export default {
  
     return formItem;
   },
-  created() {
-    // 解决火狐拖拽会打开新标签的问题
-    // document.body.ondrop = (event) => {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
-  },
   mounted() {
     const {api} = this.item;
     const params = this.item.apiParams ? this.item.apiParams : '';
@@ -241,6 +235,9 @@ export default {
     }
   },
   methods: {
+    setData(dataTransfer, dragEl) {
+      dataTransfer.setData('Move', dragEl.textContent);
+    },
     handleClick(event, row) {
       event.stopPropagation();
       // console.log(this.item.key, this.selectWidget.key);

@@ -9,6 +9,7 @@
     <draggable 
       v-model="config.list"
       v-bind="{group: 'button', ghostClass: 'widget-preview', handle: '.widget-drag'}"
+      :setData="setData"
     >
     <transition-group name="fade" tag="div" class="widget-view">
       <template v-for="(row, index) in config.list">
@@ -28,8 +29,8 @@
 </template>
 
 <script>
-// import commonFormItem from './commonFormItem';
-const commonFormItem = () => import('./commonFormItem');
+import commonFormItem from './commonFormItem';
+// const commonFormItem = () => import('./commonFormItem');
 // import draggable from 'vuedraggable';
 const draggable = () => import('vuedraggable');
 export default {
@@ -78,9 +79,9 @@ export default {
     }
   },
   methods: {
-    // setData(dataTransfer, dragEl) {
-    //   console.log('enter');
-    // },
+    setData(dataTransfer, dragEl) {
+      dataTransfer.setData('Move', dragEl.textContent);
+    },
     getOptions() {
       return {
         setData: (dataTransfer) => {
