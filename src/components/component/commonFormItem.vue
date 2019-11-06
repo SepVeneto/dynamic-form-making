@@ -220,10 +220,11 @@ export default {
     return formItem;
   },
   created() {
-    document.body.ondrop = (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    // 解决火狐拖拽会打开新标签的问题
+    // document.body.ondrop = (event) => {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    // }
   },
   mounted() {
     const {api} = this.item;

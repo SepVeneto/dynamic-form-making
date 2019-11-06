@@ -57,10 +57,11 @@ export default {
     }
   },
   created() {
-    document.body.ondrop = (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    // 解决火狐拖拽会打开新标签的问题
+    // document.body.ondrop = (event) => {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    // }
   },
   mounted() {
     this.setDefaultValue();
@@ -77,12 +78,24 @@ export default {
     }
   },
   methods: {
+    // setData(dataTransfer, dragEl) {
+    //   console.log('enter');
+    // },
+    getOptions() {
+      return {
+        setData: (dataTransfer) => {
+          dataTransfer.setData('Text', '');
+          console.log('enter')
+          this.$emit('setData');
+        }
+      }
+    },
     handleAdd(ext) {
-      console.log('enter')
-      console.log(ext);
+      // console.log('enter')
+      // console.log(ext);
     },
     handleClicK(e) {
-      console.log('click')
+      // console.log('click')
     },
     handleInput(value, key) {
       this.$emit('input', {...this.value, [key]: value});

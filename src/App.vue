@@ -21,6 +21,7 @@
             :list="items"
             v-bind="{group: {name: 'button', pull: 'clone', put: false}, sort: false}"
             :clone="handleDeepClone"
+            :setData="setData"
             class="components-container"
           >
             <div v-for="(item,index) in items" class="form-item" :key="index">
@@ -184,6 +185,9 @@ export default {
     }
   },
   methods: {
+    setData(dataTransfer, dragEl) {
+      dataTransfer.setData('Move', dragEl.textContent);
+    },
     handleCopy(textObj) {
       this.$copyText(JSON.stringify(textObj)).then(() => {
         this.$message({

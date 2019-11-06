@@ -156,7 +156,7 @@ export default {
       const required= {required: true, message: `请输入${this.item.label}`};
       const pattern = {required, ...validateConfig};
       const { validate_rules } = this.item;
-      console.log(pattern);
+      // console.log(pattern);
       return validate_rules && this.item.validate_rules.map(item => item && pattern[item]);
     },
   },
