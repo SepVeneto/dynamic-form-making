@@ -26,7 +26,7 @@ export default {
       set(val) {
         this.select.labelWidth = `${val}px`;
       }
-    }
+    },
   }
 }
 </script>

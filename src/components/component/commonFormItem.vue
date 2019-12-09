@@ -236,7 +236,7 @@ export default {
   },
   methods: {
     setData(dataTransfer, dragEl) {
-      dataTransfer.setData('Move', dragEl.textContent);
+      dataTransfer.setData('Text', '');
     },
     handleClick(event, row) {
       event.stopPropagation();

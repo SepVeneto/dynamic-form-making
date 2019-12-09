@@ -10,6 +10,7 @@
       v-model="pattern" 
       placeholder=""
       @change="handleSelect"
+      clearable
     >
       <el-option
         v-for="item in optionsReg"

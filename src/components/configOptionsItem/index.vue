@@ -63,6 +63,37 @@ export default {
         </div>
       </div>
     )
+    const daterangeConfig = (
+      <div>
+        <div class="widget-item">
+          <div class="widget-item__label">范围分隔符</div>
+          <div class="widget-item__prop">
+            <el-input
+              value={this.select.rangeSeparator}
+              onInput={(val) => {this.select.rangeSeparator = val}}
+            />
+          </div>
+        </div>
+        <div class="widget-item">
+          <div class="widget-item__label">开始时间占位</div>
+          <div class="widget-item__prop">
+            <el-input
+              value={this.select.startPlaceholder}
+              onInput={(val) => {this.select.startPlaceholder = val}}
+            />
+          </div>
+        </div>
+        <div class="widget-item">
+          <div class="widget-item__label">结束时间占位</div>
+          <div class="widget-item__prop">
+            <el-input
+              value={this.select.endPlaceholder}
+              onInput={(val) => {this.select.endPlaceholder = val}}
+            />
+          </div>
+        </div>
+      </div>
+    )
     const radioGroup = (key) => (
       <div class="widget-item">
         <div class="widget-item__label">{this.tranZh()}</div>
@@ -74,8 +105,10 @@ export default {
           >
             <el-radio-button label="date">日期</el-radio-button>
             <el-radio-button label="datetime">日期时间</el-radio-button>
+            <el-radio-button label="daterange">日期范围</el-radio-button>
           </el-radio-group>
         </div>
+        {this.select.widgetType === 'daterange' && daterangeConfig}
       </div>
     )
     const widget = {
@@ -178,6 +211,7 @@ export default {
       const format = {
         date: 'yyyy-MM-dd',
         datetime: 'yyyy-MM-dd HH:mm:ss',
+        daterange: 'yyyy-MM-dd',
       };
       this.select.valueFormat = format[val]
     },

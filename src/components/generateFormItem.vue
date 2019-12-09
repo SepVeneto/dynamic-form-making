@@ -71,6 +71,9 @@ export default {
           clearable={this.item.options_clearable}
           picker-options={this.item.banTime && pickerOptions}
           value-format={this.item.valueFormat || 'yyyy-MM-dd HH:mm:ss'}
+          range-separator={this.item.rangeSeparator}
+          start-placeholder={this.item.startPlaceholder}
+          end-placeholder={this.item.endPlaceholder}
           onInput={this.handleInput}
           {...{on: this.$listeners}}>
         </el-datePicker>
@@ -141,6 +144,7 @@ export default {
       : (
         <el-form-item 
           id={this.item.id}
+          label-width={this.item.labelWidth}
           class={this.item.class}
           label={this.item.label} 
           rules={this.rulesFunction}
