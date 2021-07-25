@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/components/component/bus.js"],"names":["Vue"],"mappings":"kHAAA,gCAEe,iBAAIA","file":"js/chunk-2d0ba8a9.9956d423.js","sourcesContent":["import Vue from 'vue';\r\n\r\nexport default new Vue();"],"sourceRoot":""}
