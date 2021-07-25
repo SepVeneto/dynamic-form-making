@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint --fix",
-    "analyz": "cross-env NODE_ENV=production npm_config_report=true npm run build"
+    "analyz": "cross-env NODE_ENV=production npm_config_report=true npm run build",
+    "gh-pages": "git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
     "clipboard": "^2.0.4",
