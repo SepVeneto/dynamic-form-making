@@ -1,0 +1,11 @@
+.app-wrapper {
+  display: grid;
+  grid-template-columns: 300px auto 300px;
+  column-gap: 20px;
+}
+
+.app-area {
+  width: 100%;
+  height: 200px;
+  border: 1px solid crimson;
+}
